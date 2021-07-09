@@ -1,0 +1,111 @@
+<h2>Home</h2>
+<p>The quick brown fox jumped over the lazy dog</p>
+<div class="stocks" cdkDropListGroup>
+	<form id="ticker-search" (ngSubmit)="doSearch()">
+		<input type="text" 
+					 name="ticker-search" 
+					 placeholder="{{text.stockSearchPlaceholder}}" 
+					 [formControl]="stockSearch"
+					 required
+		/>
+		<button type="submit" [disabled]="!stockSearch.valid"><i class="fa fa-search"></i></button>
+	</form>
+	<div class="search-results" id="search-result"
+			 [ngClass]="{
+			 							'show': searchResults.quotes.quote.length > 0,
+			 							'show-feedback': searchResults.quotes.unmatched_symbols
+			 						}">	
+		<button (click)="clearSearch()" title="Clear Stock Search">X</button>
+		<h3>Search Results</h3>
+		<div class="feedback" 
+				 *ngIf="searchResults.quotes.unmatched_symbols && global.isArray(searchResults.quotes.unmatched_symbols.symbol)">
+			<h3>No results for <span *ngFor="let t of searchResults.quotes.unmatched_symbols.symbol">{{t}} </span></h3>
+		</div>
+		<div class="feedback" 
+				 *ngIf="searchResults.quotes.unmatched_symbols && !global.isArray(searchResults.quotes.unmatched_symbols.symbol)">
+			<h3>No result for <span >{{searchResults.quotes.unmatched_symbols.symbol}} </span></h3>
+		</div>
+		<div 
+			*ngIf="searchResults.quotes.quote && searchResults.quotes.quote.length > 0"
+			class="search-results-container block-listing" 
+			cdkDropList
+			[cdkDropListData]="searchResults.quotes.quote">
+			<ng-container *ngFor="let q of searchResults.quotes.quote">
+				<div cdkDrag>
+					<app-stock-quote [quote]="q" [move]="true"></app-stock-quote>
+				</div>
+			</ng-container>
+		</div>
+	</div>
+
+	<ng-container *ngIf="portfolios.length > 0">
+		<div class="my-portfolio" *ngFor="let portfolio of portfolios">
+			<mat-expansion-panel hideToggle>
+			  <mat-expansion-panel-header>
+			    <mat-panel-title>
+			      <h3>
+			      	{{portfolio.name}}
+			      	<span class="fa fa-chevron-up hover-icon"></span>
+			      	<span class="fa fa-chevron-down hover-icon"></span>
+			      </h3>
+			    </mat-panel-title>
+			  </mat-expansion-panel-header>
+				<div class="block-listing" 
+						cdkDropList
+						[cdkDropListData]="portfolio.stocks"
+						(cdkDropListDropped)="dropInPortfolio($event, portfolio._id)">
+					<ng-container *ngIf="portfolio.stocks && portfolio.stocks.length == 0">
+						<p>No stocks in this portfolio yet</p>
+					</ng-container>
+					<ng-container *ngIf="portfolio.stocks && portfolio.stocks.length > 0">
+						<ng-container *ngFor="let q of portfolio.stocks">
+								<app-stock-quote [quote]="q"></app-stock-quote>
+						</ng-container>
+					</ng-container>
+				</div>
+			</mat-expansion-panel>
+		</div>
+	</ng-container>
+	<ng-container *ngIf="portfolios.length == 0">
+		<h3>No Portfolios</h3>
+	</ng-container>
+</div>
+
+
+
+<!--
+
+
+    <div class="example-list">
+      <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+    </div>
+
+
+<div cdkDropListGroup>
+  <div class="example-container">
+    <h2>Available items</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="items"
+      class="example-list"
+      cdkDropListSortingDisabled
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Shopping basket</h2>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="basket"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)">
+      <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
+    </div>
+  </div>
+</div>
+
+-->

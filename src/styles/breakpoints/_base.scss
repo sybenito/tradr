@@ -1,0 +1,84 @@
+/******************************************************************
+Mobile
+******************************************************************/
+#header {
+	background-color: $red;
+	padding: 0.4rem 1rem 0.2rem 1rem;
+}
+
+#body {
+	.body {
+		padding: 0 1rem;
+	}
+}
+
+.stock-quote {
+	background-color: $gray-800;
+	border: 2px solid $gray-500;
+	margin: 0.5rem 0.5rem;
+	min-width: 270px;
+	max-width: 300px;
+	min-height: 100px;
+	padding: 0.5rem 1rem;
+	@include round-corners(8px);
+	h3 { margin: 0; }
+	p.desc { margin-top: 0; }
+	&.move { 
+		cursor: move; 
+		&:hover { border-color: $gray-500; }
+	}
+}
+
+.search-results {
+	height: 0;
+	overflow: hidden;
+	opacity: 0;
+	will-change: height;
+	-webkit-transition: height 0.5s ease-in-out, opacity 0.5s linear;
+	   -moz-transition: height 0.5s ease-in-out, opacity 0.5s linear;
+	    -ms-transition: height 0.5s ease-in-out, opacity 0.5s linear;
+	     -o-transition: height 0.5s ease-in-out, opacity 0.5s linear;
+	        transition: height 0.5s ease-in-out, opacity 0.5s linear;
+	&.show, &.show-feedback { 
+		opacity: 1 
+	}
+	.feedback {
+		margin-bottom: 2rem;
+	}
+	.search-results-container {
+		display: flex;
+		flex-wrap: wrap;
+	}	
+}
+
+.my-portfolio {
+	margin: 1rem 0 0 0;
+	.mat-expansion-panel-header {
+		.fa-chevron-up { display: none; }
+		.fa-chevron-down { display: inline; }
+		&.mat-expanded {
+			.fa-chevron-up { display: inline; }
+			.fa-chevron-down { display: none; }
+		}
+		.mat-expansion-panel-header-title { 
+			border-bottom: 1px solid $gray-700;
+			h3 { 
+				margin-top: 0; 
+				&::selection { background: none; }
+				.fa { margin-left: 1rem; }
+			}
+		}
+	}
+	.mat-expansion-panel-body {
+		color: $text-color;
+		.block-listing { //custom element - not ng mat
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 1rem 1rem 0;	
+		}
+	}
+}
+
+.block-listing {
+	padding: 1rem 0;
+}
