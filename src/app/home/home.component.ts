@@ -69,8 +69,8 @@ export class HomeComponent implements OnInit {
 			this.global.openExpand("search-result");
 
 		}, error => {
-			console.error(error.message);
-      //this.displayFeedback.showFeedback(error.message, true, 30);  			
+			console.error(error.message);			
+      //TODO: Implement pop-over user feedback			
 		});
 		
   }
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
 			this.portfolios = payload;
 		}, error => {
 			console.error(error.message);
-      //this.displayFeedback.showFeedback(error.message, true, 30);  			
+      //TODO: Implement pop-over user feedback			
 		});
 
   }

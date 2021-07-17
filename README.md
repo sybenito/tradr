@@ -1,4 +1,8 @@
 # Tradr
+This is a stock lookup SPA application where a user can search for one or more stock ticker symbols, and drag/drop them into an **open** accordion instance.  
+
+The application leverages the Tradier API for stock ticker symbol lookups as well as data persistance from the drand/drop action.
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.10.
 
